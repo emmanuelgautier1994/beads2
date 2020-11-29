@@ -7,7 +7,7 @@
 
 	let step = 'configuring'
 	let gridSize = 20
-	let layoutRotation = 180
+	let layoutRotation = 90
 	$: painting = step == 'painting'
 	$: configuring = step == 'configuring'
 

@@ -19,7 +19,7 @@
       case 90 :
         return range(size).flatMap(i => range(size).flatMap(j=> ({
           id: i*size + j,
-          x: totalH - (i % 2 ? h * (j + 0.75) : h * (j + 1.75)),
+          x: totalH - (i % 2 ? h * (j + 1) : h * (j + 1.5)),
           y: w * (i + 1.5) + 3,
           height: w,
           width: h,
@@ -28,23 +28,23 @@
         return range(size).flatMap(i => range(size).flatMap(j=> ({
           id: i*size + j,
           x: totalW - (w * (i + 1.5)) - 6,
-          y: totalH - (i % 2 ? h * (j + 0.75) : h * (j + 1.75)) + 1,
+          y: totalH - (i % 2 ? h * (j + 1) : h * (j + 1.5)) + 1,
           height: h,
           width: w,
         })))
       case 270 :
         return range(size).flatMap(i => range(size).flatMap(j=> ({
           id: i*size + j,
-          x: w * (i + 1.5),
-          y: i % 2 ? h * (j + 0.75) : h * (j + 1.75),
-          height: h,
-          width: w,
+          x: i % 2 ? h * (j + 1) : h * (j + 1.5) - 2,
+          y: totalW - (w * (i + 1.5) + 3) - 2,
+          height: w,
+          width: h,
         })))
       default :
         return range(size).flatMap(i => range(size).flatMap(j=> ({
           id: i*size + j,
           x: w * (i + 1.5) + 2,
-          y: i % 2 ? h * (j + 0.75) : h * (j + 1.75),
+          y: i % 2 ? h * (j + 1) : h * (j + 1.5),
           height: h,
           width: w,
         })))
