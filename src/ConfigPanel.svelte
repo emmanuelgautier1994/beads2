@@ -35,21 +35,6 @@
     font-size: 2em;
   }
 
-  button {
-    background: #4CAF50;
-    font-weight: 900;
-    font-size: 2em;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    outline: none;
-    border: none;
-  }
-
-  button:hover {
-    background: #378039;
-  }
-
   .go-button {
     width: 2.5em;
     height: 2.5em;

@@ -5,13 +5,11 @@
 	import Workspace from './Workspace.svelte'
 	import Canvas from './Canvas.svelte'
 
-	let step = 'configuring'
+	let step = 'painting'
 	let gridSize = 20
 	let layoutRotation = 90
 	$: painting = step == 'painting'
 	$: configuring = step == 'configuring'
-
-	$:console.log({layoutRotation})
 
 	const toggleStep = () => { step = {configuring: "painting", painting: "configuring"}[step] }
 </script>
@@ -36,7 +34,7 @@
 		height: 100%;
 
 		display: grid;
-		grid-template-columns: 15rem 10rem auto;
+		grid-template-columns: 15rem 10rem 1fr;
 		grid-template-rows: 15vh;
 		gap: 0.5em 0.5em;
 	}
