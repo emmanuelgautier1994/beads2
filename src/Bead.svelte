@@ -4,11 +4,21 @@
   export let y
   export let width
   export let height
+  import { colorPalette, canvasColors, selectedColorId } from './stores.js'
 
-  let fill = 'white'
+  let selectId
+  selectedColorId.subscribe((value) => {
+    if(id === 3) console.log("salut")
+  })
 
-  $: if(id < 25) fill = 'red'
-  $: if(id > 25) fill = 'blue'
+  colorPalette.subscribe((value) => {
+    if(id === 3) console.log(value)
+  })
+
+  $: colorId = $canvasColors[id]
+  $: color = (colorId !== undefined) ? $colorPalette[colorId] : {h: 0, s: 100, l: 100}
+  $: fill = `hsl(${color.h}, ${color.s}%, ${color.l}%)`
+  // let fill = 'white'
 </script>
 
 <rect

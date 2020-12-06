@@ -1,10 +1,12 @@
 <script>
   import Bead from './Bead.svelte'
+  import { colorPalette, canvasColors, selectedColorId } from './stores.js'
   export let gridSize
   export let layoutRotation
   export let painting
 
   const range = (s) => [...Array(s).keys()]
+  $: console.log({ourPalette: $colorPalette})
 
   $: totalSideWidth = 2 * (gridSize + 1)
   $: totalSideHeight = 2 * (gridSize + 2)

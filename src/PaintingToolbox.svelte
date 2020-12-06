@@ -1,25 +1,16 @@
 <script>
   import PaintingToolboxGrid from './PaintingToolboxGrid.svelte'
+  import { colorPalette, selectedColorId } from './stores.js'
   export let toggleStep
 
-  let selectedColorId = 1
+  // $: console.log({myPalette: $colorPalette})
 
-  let colors = [
-    {h: 0, s:100, l:100, id: 1},
-    {h: 50, s:100, l:70, id: 2},
-    {h: 100, s:100, l:70, id: 3},
-    {h: 150, s:100, l:70, id: 4},
-    {h: 200, s:100, l:70, id: 5},
-    {h: 250, s:100, l:70, id: 6},
-    {h: 300, s:100, l:70, id: 7},
-    {h: 350, s:100, l:70, id: 8},
-    {h: 0, s:100, l:70, id: 9},
-    {h: 0, s:100, l:50, id: 10},
-    {h: 0, s:100, l:30, id: 11},
-    {h: 0, s:100, l:10, id: 12}
-  ]
-
-  $: selectedColor = colors[selectedColorId-1]
+  $: selectedColor = $colorPalette[$selectedColorId]
+  const selectColor = (id) => () => selectedColorId.set(id)
+  const updateColor = (key) => (e) => {
+    // colorPalette.updateColor($selectedColorId, key, e.target.value)
+    $colorPalette[$selectedColorId][key] = e.target.value
+  }
 </script>
 
 <div class="cell">
@@ -28,28 +19,29 @@
       slot='hue-slider'
       type='range' class='hue-gradient'
       min=0 max=360 step=1
-      bind:value={colors[selectedColorId-1].h}
+      bind:value={selectedColor.h}
     />
     <input
       slot='sat-slider' type='range'
       min=0 max=100 step=1
       class='sat-gradient' style="--h:{selectedColor.h}; --l:{selectedColor.l}%"
-      bind:value={colors[selectedColorId-1].s}
+      bind:value={selectedColor.s}
+      on:change={updateColor('s')}
     />
     <input
       slot='light-slider' type='range'
       min=0 max=100 step=1
       class='light-gradient' style="--h:{selectedColor.h}; --s:{selectedColor.s}%"
-      bind:value={colors[selectedColorId-1].l}
+      bind:value={selectedColor.l}
     />
     <div slot='colors' class='colors-grid'>
-      {#each colors as color (color.id)}
+      {#each $colorPalette as color (color.id)}
         <div
-          class:selected={color.id == selectedColorId}
+          class:selected={color.id == $selectedColorId}
           class:blank={color.l == 100}
           class='color'
           style="--h:{color.h}; --s:{color.s}%; --l:{color.l}%"
-          on:click={() => selectedColorId = color.id}
+          on:click={selectColor(color.id)}
         />
       {/each}
     </div>
