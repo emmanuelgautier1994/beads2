@@ -3,14 +3,8 @@
   import { colorPalette, selectedColorId } from './stores.js'
   export let toggleStep
 
-  // $: console.log({myPalette: $colorPalette})
-
   $: selectedColor = $colorPalette[$selectedColorId]
   const selectColor = (id) => () => selectedColorId.set(id)
-  const updateColor = (key) => (e) => {
-    // colorPalette.updateColor($selectedColorId, key, e.target.value)
-    $colorPalette[$selectedColorId][key] = e.target.value
-  }
 </script>
 
 <div class="cell">
@@ -19,20 +13,19 @@
       slot='hue-slider'
       type='range' class='hue-gradient'
       min=0 max=360 step=1
-      bind:value={selectedColor.h}
+      bind:value={$colorPalette[$selectedColorId].h}
     />
     <input
       slot='sat-slider' type='range'
       min=0 max=100 step=1
       class='sat-gradient' style="--h:{selectedColor.h}; --l:{selectedColor.l}%"
-      bind:value={selectedColor.s}
-      on:change={updateColor('s')}
+      bind:value={$colorPalette[$selectedColorId].s}
     />
     <input
       slot='light-slider' type='range'
       min=0 max=100 step=1
       class='light-gradient' style="--h:{selectedColor.h}; --s:{selectedColor.s}%"
-      bind:value={selectedColor.l}
+      bind:value={$colorPalette[$selectedColorId].l}
     />
     <div slot='colors' class='colors-grid'>
       {#each $colorPalette as color (color.id)}

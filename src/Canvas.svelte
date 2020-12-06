@@ -6,7 +6,6 @@
   export let painting
 
   const range = (s) => [...Array(s).keys()]
-  $: console.log({ourPalette: $colorPalette})
 
   $: totalSideWidth = 2 * (gridSize + 1)
   $: totalSideHeight = 2 * (gridSize + 2)

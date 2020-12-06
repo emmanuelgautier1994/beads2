@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 const createColorPalette = () => {
-  const { subscribe, update } = writable(
+  const { subscribe, set, update } = writable(
     [
       {h: 175, s:65, l:35, id: 0},
       {h: 150, s:74, l:72, id: 1},
@@ -20,12 +20,15 @@ const createColorPalette = () => {
 
   return {
     subscribe,
+    set,
     updateColor: (newColor) => update(palette => palette.map(
       (color, i) => i === newColor.id ? newColor : color)
     )
   }
 }
 
+const defaultCanvas = () => ({...Array(400).fill().map((_,i) => (Math.floor(i/20) % 5))})
+
 export const colorPalette = createColorPalette()
 export const selectedColorId = writable(0)
-export const canvasColors = writable ({3:0, 4:1, 5: 2, 6: 3, 7:4})
+export const canvasColors = writable (defaultCanvas())
