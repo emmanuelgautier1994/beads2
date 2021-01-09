@@ -24,8 +24,13 @@ button {
 	border: none;
 }
 
-button:hover {
+button:not(.disabled):hover {
 	background: #378039;
+}
+
+button.disabled {
+	background: grey;
+	cursor: default;
 }
 
 /* .cell {
