@@ -1,6 +1,6 @@
 <script>
   import Bead from './Bead.svelte'
-  import { colorPalette, canvasColors, selectedColorId } from './stores.js'
+  import { canvasColors, selectedColorId, history } from './stores.js'
   export let gridSize
   export let layoutRotation
   export let painting
@@ -53,9 +53,14 @@
   }
 
   $: beads = makeBeads(gridSize, beadHeight, beadWidth, totalSideWidth, totalSideHeight, layoutRotation)
+
+
+  const handleTouchMove = (e) => {
+    $canvasColors[document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY).id] = $selectedColorId
+  }
 </script>
 
-<svg {viewBox}>
+<svg {viewBox} on:touchmove={handleTouchMove} on:pointerup={() => history.commit($canvasColors)}>
   {#each beads as bead (bead.id)}
     <Bead {...bead} />
   {/each}

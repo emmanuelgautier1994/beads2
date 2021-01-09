@@ -1,10 +1,21 @@
 <script>
   import PaintingToolboxGrid from './PaintingToolboxGrid.svelte'
-  import { colorPalette, selectedColorId } from './stores.js'
+  import { colorPalette, selectedColorId, history, canvasColors } from './stores.js'
   export let toggleStep
 
   $: selectedColor = $colorPalette[$selectedColorId]
   const selectColor = (id) => () => selectedColorId.set(id)
+
+  $: canUndo = $history.cursor > 0
+  $: canRedo = $history.cursor < $history.versions.length - 1
+  const onClickUndo = () => {
+    history.undo()
+    canvasColors.set($history.versions[$history.cursor])
+  }
+  const onClickRedo = () => {
+    history.redo()
+    canvasColors.set($history.versions[$history.cursor])
+  }
 </script>
 
 <div class="cell">
@@ -16,15 +27,15 @@
       bind:value={$colorPalette[$selectedColorId].h}
     />
     <input
-      slot='sat-slider' type='range'
+      slot='sat-slider'
+      type='range' class='sat-gradient' style="--h:{selectedColor.h}; --l:{selectedColor.l}%"
       min=0 max=100 step=1
-      class='sat-gradient' style="--h:{selectedColor.h}; --l:{selectedColor.l}%"
       bind:value={$colorPalette[$selectedColorId].s}
     />
     <input
-      slot='light-slider' type='range'
+      slot='light-slider'
+      type='range' class='light-gradient' style="--h:{selectedColor.h}; --s:{selectedColor.s}%"
       min=0 max=100 step=1
-      class='light-gradient' style="--h:{selectedColor.h}; --s:{selectedColor.s}%"
       bind:value={$colorPalette[$selectedColorId].l}
     />
     <div slot='colors' class='colors-grid'>
@@ -37,6 +48,10 @@
           on:click={selectColor(color.id)}
         />
       {/each}
+    </div>
+    <div slot='history-buttons'>
+      <button disabled='{!canUndo}' class:disabled={!canUndo} on:click={onClickUndo}>{'<'}</button>
+      <button disabled='{!canRedo}' class:disabled={!canRedo} on:click={onClickRedo}>{'>'}</button>
     </div>
     <button on:click={toggleStep} slot="reset-button" class='reset-button'>X</button>
   </PaintingToolboxGrid>

@@ -3,6 +3,7 @@
   <div class='cell cell-sat-slider'><slot name='sat-slider' /></div>
   <div class='cell cell-light-slider'><slot name='light-slider' /></div>
   <div class='cell cell-colors'><slot name='colors' /></div>
+  <div class='cell cell-history-buttons'><slot name='history-buttons' /></div>
   <div class='cell cell-reset-button'><slot name='reset-button' /></div>
 </div>
 
@@ -11,12 +12,12 @@
     display: grid;
     align-items: center;
     justify-content: space-around;
-    grid-template-columns: 15em 15em 5em;
+    grid-template-columns: 3fr 3fr 2fr 1fr;
     grid-template-rows: 1.5em 1.5em 1.5em;
     grid-template-areas:
-      "hue-slider colors reset-button"
-      "sat-slider colors reset-button"
-      "light-slider colors reset-button";
+      "hue-slider colors history-buttons reset-button"
+      "sat-slider colors history-buttons reset-button"
+      "light-slider colors history-buttons reset-button";
   }
 
   .cell-hue-slider { grid-area: hue-slider; }
@@ -25,6 +26,7 @@
 
   .cell-colors { grid-area: colors; }
 
+  .cell-history-buttons { grid-area: history-buttons; }
   .cell-reset-button { grid-area: reset-button; }
   
 </style>
