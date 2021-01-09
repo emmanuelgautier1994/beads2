@@ -5,7 +5,7 @@
 	import Workspace from './Workspace.svelte'
 	import Canvas from './Canvas.svelte'
 
-	let step = 'painting'
+	let step = 'configuring'
 	let gridSize = 20
 	let layoutRotation = 90
 	$: painting = step == 'painting'
