@@ -1,20 +1,29 @@
 <script>
   import PaintingToolboxGrid from './PaintingToolboxGrid.svelte'
-  import { colorPalette, selectedColorId, history, canvasColors } from './stores.js'
-  export let toggleStep
+  import { colorPalette, selectedColorId, history, canvasColors, step } from './stores.js'
 
   $: selectedColor = $colorPalette[$selectedColorId]
   const selectColor = (id) => () => selectedColorId.set(id)
 
   $: canUndo = $history.cursor > 0
   $: canRedo = $history.cursor < $history.versions.length - 1
-  const onClickUndo = () => {
+
+  const handleClickUndo = () => {
     history.undo()
     canvasColors.set($history.versions[$history.cursor])
   }
-  const onClickRedo = () => {
+  const handleClickRedo = () => {
     history.redo()
     canvasColors.set($history.versions[$history.cursor])
+  }
+
+  const handleClickReset = () => {
+    step.setConfiguring()
+    colorPalette.reset()
+    canvasColors.reset()
+    colorPalette.reset()
+    selectedColorId.reset()
+    history.reset()
   }
 </script>
 
@@ -50,10 +59,10 @@
       {/each}
     </div>
     <div slot='history-buttons'>
-      <button disabled='{!canUndo}' class:disabled={!canUndo} on:click={onClickUndo}>{'<'}</button>
-      <button disabled='{!canRedo}' class:disabled={!canRedo} on:click={onClickRedo}>{'>'}</button>
+      <button disabled='{!canUndo}' class:disabled={!canUndo} on:click={handleClickUndo}>{'<'}</button>
+      <button disabled='{!canRedo}' class:disabled={!canRedo} on:click={handleClickRedo}>{'>'}</button>
     </div>
-    <button on:click={toggleStep} slot="reset-button" class='reset-button'>X</button>
+    <button on:click={handleClickReset} slot="reset-button" class='reset-button'>X</button>
   </PaintingToolboxGrid>
 </div>
 

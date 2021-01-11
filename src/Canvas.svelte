@@ -1,9 +1,8 @@
 <script>
   import Bead from './Bead.svelte'
-  import { canvasColors, selectedColorId, history } from './stores.js'
+  import { canvasColors, selectedColorId, history, step } from './stores.js'
   export let gridSize
   export let layoutRotation
-  export let painting
 
   const range = (s) => [...Array(s).keys()]
 
@@ -56,6 +55,7 @@
 
 
   const handleTouchMove = (e) => {
+    if($step != "painting") return
     $canvasColors[document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY).id] = $selectedColorId
   }
 </script>

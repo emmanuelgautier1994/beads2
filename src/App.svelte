@@ -5,24 +5,23 @@
 	import Workspace from './Workspace.svelte'
 	import Canvas from './Canvas.svelte'
 
-	let step = 'configuring'
+	import { step } from './stores.js'
+
 	let gridSize = 20
 	let layoutRotation = 90
-	$: painting = step == 'painting'
-	$: configuring = step == 'configuring'
-
-	const toggleStep = () => { step = {configuring: "painting", painting: "configuring"}[step] }
+	$: painting = $step == 'painting'
+	$: configuring = $step == 'configuring'
 </script>
 
 <main class:painting class:configuring>
 	<Logo />
-	<ConfigPanel bind:gridSize bind:layoutRotation {...{toggleStep, configuring, painting}} />
+	<ConfigPanel bind:gridSize bind:layoutRotation />
 	{#if painting}
-		<PaintingToolbox {...{toggleStep}} />
+		<PaintingToolbox />
 	{/if}
 
 	<Workspace>
-		<Canvas {...{painting, gridSize, layoutRotation}} />
+		<Canvas {...{gridSize, layoutRotation}} />
 	</Workspace>
 </main>
 

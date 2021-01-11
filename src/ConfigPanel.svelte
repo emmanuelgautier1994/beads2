@@ -1,14 +1,17 @@
 <script>
   import ConfigPanelGrid from './ConfigPanelGrid.svelte'
 
+  import { step } from './stores.js'
+
   export let gridSize
   export let layoutRotation
-  export let configuring
-  export let painting
-  export let toggleStep
 
   const rotateRight = () => { layoutRotation = (layoutRotation + 90) % 360 }
-	const rotateLeft = () => { layoutRotation = (layoutRotation - 90 + 360) % 360 }
+  const rotateLeft = () => { layoutRotation = (layoutRotation - 90 + 360) % 360 }
+  const handleClickGoButton = () => { step.setPainting() }
+  
+  $: painting = $step == 'painting'
+	$: configuring = $step == 'configuring'
 </script>
 
 <div class="cell">
@@ -19,7 +22,7 @@
     </div>
     <p slot='label' class='label'>{gridSize} x {gridSize}</p>
     <input type='range' slot='slider' bind:value={gridSize} min={5} max={50} step={1}>
-    <button slot='go-button' class='go-button' on:click={toggleStep}>Go!</button>
+    <button slot='go-button' class='go-button' on:click={handleClickGoButton}>Go!</button>
   </ConfigPanelGrid>
 </div>
 
