@@ -59,17 +59,21 @@
       {/each}
     </div>
     <div slot='history-buttons'>
-      <button disabled='{!canUndo}' class:disabled={!canUndo} on:click={handleClickUndo}>{'<'}</button>
-      <button disabled='{!canRedo}' class:disabled={!canRedo} on:click={handleClickRedo}>{'>'}</button>
+      <button on:click={handleClickUndo} aria-label={canUndo ? 'undo' : 'undo (disabled)'} class:disabled={!canUndo} class='history-button'>
+        <img src='../img/undo.svg' alt={canUndo ? 'undo' : 'undo (disabled)'} />
+      </button>
+      <button on:click={handleClickRedo} aria-label={canRedo ? 'redo' : 'redo (disabled)'} class:disabled={!canRedo} class='history-button'>
+        <img src='../img/redo.svg' alt={canRedo ? 'redo' : 'redo (disabled)'} />
+      </button>
     </div>
-    <button on:click={handleClickReset} slot="reset-button" class='reset-button'>X</button>
+    <button on:click={handleClickReset} slot="reset-button" class='reset-button' aria-label='reset canvas'>X</button>
   </PaintingToolboxGrid>
 </div>
 
 <style>
   .cell{
     grid-area: painting-toolbox;
-    align-self: center;
+    align-self: stretch;
     text-align: center;
   }
 
@@ -146,5 +150,18 @@
   .reset-button{
     height: 100%;
     width: 100%;
+    background-color: #ee1122 !important;
+  }
+
+  .reset-button:hover{
+    background-color: #aa0011 !important;
+  }
+
+  .history-button{
+    border-radius: 100%;
+    padding: 0em;
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0.1em;
   }
 </style>

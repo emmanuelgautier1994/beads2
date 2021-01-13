@@ -14,23 +14,37 @@ body {
 
 button {
 	font-family: 'Montserrat', sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-	background: #4CAF50;
 	font-weight: 900;
 	font-size: 2em;
 	color: white;
+	background: #4CAF50;
+	padding: 0 0.2em;
 	cursor: pointer;
 	transition: all 0.3s ease;
 	outline: none;
 	border: none;
 }
 
-button:not(.disabled):hover {
+button:not(.disabled):not(.secondary-button):hover {
 	background: #378039;
 }
 
-button.disabled {
+button.secondary-button {
+	background: none;
+}
+
+.disabled {
 	background: grey;
 	cursor: default;
+}
+
+.secondary-button-content:not(.disabled) {
+	background-color: #4CAF50;
+	transition: all 0.3s ease;
+}
+
+.secondary-button-content:not(.disabled):hover {
+	background-color: #378039;
 }
 
 /* .cell {

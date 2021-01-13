@@ -9,15 +9,18 @@
 
 <style>
   .grid{
+    height: 100%;
     display: grid;
     align-items: center;
     justify-content: space-around;
-    grid-template-columns: 3fr 3fr 2fr 1fr;
-    grid-template-rows: 1.5em 1.5em 1.5em;
+    grid-template-columns: 3fr 3fr 2.5fr 1fr;
+    grid-template-rows: 1fr 1.5em 1.5em 1.5em 1fr;
     grid-template-areas:
+      ". colors history-buttons reset-button"
       "hue-slider colors history-buttons reset-button"
       "sat-slider colors history-buttons reset-button"
-      "light-slider colors history-buttons reset-button";
+      "light-slider colors history-buttons reset-button"
+      ". colors history-buttons reset-button";
   }
 
   .cell-hue-slider { grid-area: hue-slider; }
@@ -26,7 +29,7 @@
 
   .cell-colors { grid-area: colors; }
 
-  .cell-history-buttons { grid-area: history-buttons; }
-  .cell-reset-button { grid-area: reset-button; }
+  .cell-history-buttons { grid-area: history-buttons; place-self: center stretch;}
+  .cell-reset-button { grid-area: reset-button; place-self: stretch stretch; }
   
 </style>

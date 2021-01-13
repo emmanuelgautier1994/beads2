@@ -17,8 +17,12 @@
 <div class="cell">
   <ConfigPanelGrid {...{configuring, painting}}>
     <div slot='rotate-buttons'>
-      <button on:click={rotateLeft}>L</button>
-      <button on:click={rotateRight}>R</button>
+      <button on:click={rotateLeft} class='secondary-button' aria-label='rotate left'>
+        <div class='secondary-button-content rotate rotate-left'/>
+      </button>
+      <button on:click={rotateRight} class='secondary-button' aria-label='rotate right'>
+        <div class='secondary-button-content rotate rotate-right'/>
+      </button>
     </div>
     <p slot='label' class='label'>{gridSize} x {gridSize}</p>
     <input type='range' slot='slider' bind:value={gridSize} min={5} max={50} step={1}>
@@ -42,6 +46,21 @@
     width: 2.5em;
     height: 2.5em;
     border-radius: 2.5em;
+  }
+
+  .rotate {
+    width: 1.2em;
+    height: 1.2em;
+  }
+
+  .rotate-left {
+    mask: url('../img/rotate-left.svg');
+    -webkit-mask: url('../img/rotate-left.svg') no-repeat center;
+  }
+
+  .rotate-right {
+    mask: url('../img/rotate-right.svg');
+    -webkit-mask: url('../img/rotate-right.svg') no-repeat center;
   }
 
   input {

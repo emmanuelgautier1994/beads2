@@ -34,7 +34,7 @@
 
 		display: grid;
 		grid-template-columns: 15rem 10rem 1fr;
-		grid-template-rows: 15vh;
+		grid-template-rows: 7rem;
 		gap: 0.5em 0.5em;
 	}
 
