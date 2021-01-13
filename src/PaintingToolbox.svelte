@@ -60,10 +60,10 @@
     </div>
     <div slot='history-buttons'>
       <button on:click={handleClickUndo} aria-label={canUndo ? 'undo' : 'undo (disabled)'} class:disabled={!canUndo} class='history-button'>
-        <img src='../img/undo.svg' alt={canUndo ? 'undo' : 'undo (disabled)'} />
+        <img src='img/undo.svg' alt={canUndo ? 'undo' : 'undo (disabled)'} />
       </button>
       <button on:click={handleClickRedo} aria-label={canRedo ? 'redo' : 'redo (disabled)'} class:disabled={!canRedo} class='history-button'>
-        <img src='../img/redo.svg' alt={canRedo ? 'redo' : 'redo (disabled)'} />
+        <img src='img/redo.svg' alt={canRedo ? 'redo' : 'redo (disabled)'} />
       </button>
     </div>
     <button on:click={handleClickReset} slot="reset-button" class='reset-button' aria-label='reset canvas'>X</button>
